@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
 #define ll long long
@@ -19,27 +18,24 @@ const ll LINF = 1e18;
 const int MAXN = 2e5 + 5; 
 
 
+
 void solve() {
-    int N, K;
-
-    cin >> N >> K;
-    vector<int> A(N);
-
-    int count = 0;
-    for (int i = 0; i < N; i++){
-        int n;
-        cin >> n;
-        count += n;
-        A[i] = count;
+    string A, B;
+    cin >> A >> B;
+    int nA = A.size();
+    int nB = B.size();
+    if (B.size()+1 > nA){
+        cout << "Wah, tidak bisa :(\n";
+        return;
     }
 
-    for (int i = 0; i < K; i++){
-        int n;
-        cin >> n;
-
-        auto it = upper_bound(all(A), n);
-        cout << (it - A.begin()) << "\n";
+    for (int i = 0; i < nB; i++){
+        if(A[i] != B[i] && A[i+1] != B[i]){
+            cout << "Wah, tidak bisa :(\n";
+            return;
+        }
     }
+    cout << "Tentu saja bisa!\n";
 }
 
 int main() {

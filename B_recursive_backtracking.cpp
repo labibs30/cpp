@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
 #define ll long long
@@ -18,28 +17,26 @@ const int INF = 1e9 + 5;
 const ll LINF = 1e18;
 const int MAXN = 2e5 + 5; 
 
+vector<int> hasil(MAXN);
 
+void coba(int kedalaman, int N, int K) {
+    if (kedalaman > K) {
+        for (int i = 1; i <= K; i++) {
+            cout << hasil[i] << " ";
+        }
+        cout << "\n";
+    } else {
+        for (int i = hasil[kedalaman-1] + 1; i <= N; i++) {
+            hasil[kedalaman] = i;
+            coba(kedalaman + 1, N, K);
+        }
+    }
+}
 void solve() {
     int N, K;
-
     cin >> N >> K;
-    vector<int> A(N);
 
-    int count = 0;
-    for (int i = 0; i < N; i++){
-        int n;
-        cin >> n;
-        count += n;
-        A[i] = count;
-    }
-
-    for (int i = 0; i < K; i++){
-        int n;
-        cin >> n;
-
-        auto it = upper_bound(all(A), n);
-        cout << (it - A.begin()) << "\n";
-    }
+    coba(1, N, K);
 }
 
 int main() {
